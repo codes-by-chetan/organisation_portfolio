@@ -1,0 +1,95 @@
+<!-- Navbar -->
+<nav
+  class="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <div class="container flex h-14 items-center justify-between">
+    <div class="flex items-center">
+      <a href="/" class="flex items-center space-x-2">
+        <span class="font-bold">Galaxki Engineering</span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a
+        class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"
+        [routerLink]="['/']"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a
+        class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"
+        [routerLink]="['/about']"
+        [routerLinkActive]="'active'"
+        >About</a
+      >
+      <a
+        class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"
+        [routerLink]="['/services']"
+        [routerLinkActive]="'active'"
+        >Services</a
+      >
+      <a
+        class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"
+        [routerLink]="['/contact']"
+        [routerLinkActive]="['text-foreground/80']"
+        >Contact</a
+      >
+      <div class="hidden md:flex items-center ">
+        <button (click)="toggleDarkMode()">
+          <i class="fas fa-sun" *ngIf="!isDarkMode"></i>
+          <i class="fas fa-moon" *ngIf="isDarkMode"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu Button -->
+    <button
+      (click)="isMenuOpen = !isMenuOpen"
+      class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/60 hover:bg-accent hover:text-foreground/80"
+    >
+      <span class="sr-only">Open main menu</span>
+      <i class="fas fa-bars" [class.fa-times]="isMenuOpen"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div *ngIf="isMenuOpen" class="md:hidden border-t" [@slideInOut]>
+    <div class="container py-2 space-y-1">
+      <a
+        [routerLink]="['/']"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="isMenuOpen = false"
+        class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+      >
+        Home
+      </a>
+      <a
+        [routerLink]="['/about']"
+        [routerLinkActive]="'active'"
+        (click)="isMenuOpen = false"
+        class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+      >
+        About
+      </a>
+      <a
+        [routerLink]="['/services']"
+        [routerLinkActive]="'active'"
+        (click)="isMenuOpen = false"
+        class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+      >
+        Services
+      </a>
+      <a
+        [routerLink]="['/contact']"
+        [routerLinkActive]="'active'"
+        (click)="isMenuOpen = false"
+        class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+      >
+        Contact
+      </a>
+    </div>
+  </div>
+</nav>

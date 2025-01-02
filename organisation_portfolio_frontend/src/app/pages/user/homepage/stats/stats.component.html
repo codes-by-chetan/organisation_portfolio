@@ -1,0 +1,14 @@
+<!-- Stats Section -->
+<section class="py-20" appInView (inView)="onStatsInView($event)">
+    <div class="container" *ngIf="statsInView">
+      <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div *ngFor="let stat of stats" class="space-y-2">
+          <i [class]="stat.icon + ' text-3xl text-primary'"></i>
+          <p class="text-4xl font-bold tracking-tight text-stone-400">
+            <span [countUp]="stat.value" [options]="countUpOptions" [reanimateOnClick]="false">0</span>{{stat.value === 2011 ? '' : '+'}}
+          </p>
+          <p class="text-sm text-stone-400">{{stat.label}}</p>
+        </div>
+      </div>
+    </div>
+  </section>

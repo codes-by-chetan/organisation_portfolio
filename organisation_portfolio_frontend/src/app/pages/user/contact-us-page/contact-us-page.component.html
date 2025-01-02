@@ -1,0 +1,51 @@
+<div class="bg-background text-foreground p-8">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-primary">Contact Us</h2>
+  
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Contact Information -->
+        <div class="bg-card rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-semibold mb-4 text-accent-foreground">Our Contact Details</h3>
+          <p class="text-muted-foreground mb-4">{{ contactInfo.address }}</p>
+          <div class="mb-4">
+            <h4 class="font-semibold text-card-foreground">Phone:</h4>
+            <p *ngFor="let phone of contactInfo.phone" class="text-muted-foreground">{{ phone }}</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-card-foreground">Email:</h4>
+            <p *ngFor="let email of contactInfo.email" class="text-muted-foreground">{{ email }}</p>
+          </div>
+        </div>
+  
+        <!-- Contact Form -->
+        <div class="bg-card rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-semibold mb-4 text-accent-foreground">Connect with our team</h3>
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4">
+            <div>
+              <label for="name" class="block text-sm font-medium text-card-foreground">Name</label>
+              <input type="text" id="name" formControlName="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+              <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="mt-1 text-sm text-destructive">Name is required</p>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-card-foreground">Email</label>
+              <input type="email" id="email" formControlName="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+              <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="mt-1 text-sm text-destructive">Please enter a valid email</p>
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-card-foreground">Phone (optional)</label>
+              <input type="tel" id="phone" formControlName="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+              <p *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched" class="mt-1 text-sm text-destructive">Please enter a valid 10-digit phone number</p>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-card-foreground">Message</label>
+              <textarea id="message" formControlName="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"></textarea>
+              <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="mt-1 text-sm text-destructive">Message is required</p>
+            </div>
+            <button type="submit" class="w-full bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
