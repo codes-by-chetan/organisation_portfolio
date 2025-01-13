@@ -1,23 +1,25 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import dbLogger from "../middleware/dbLogger.middleware";
 
-const headerSchema = new mongoose.Schema({
-  organisationName: { type: String, required: true },
-  organisationLogo: { type: String, required: true },
-  tagline: { type: String, required: true },
-  navigationLinks: [{ type: String, required: true }],
-  contactInfo: {
-    phoneNumber: { type: String, required: true },
-    email: { type: String, required: true },
-    address: { type: String, required: true }
-  },
-  socialMediaLinks: {
-    facebook: { type: String, required: true },
-    twitter: { type: String, required: true },
-    instagram: { type: String, required: true },
-    linkedin: { type: String, required: true }
-  }
-}, { timestamps: true });
+const navSchema = new mongoose.Schema({
+    label: { type: String, required: true },
+    link: { type: String, required: true },
+});
 
-const Header = mongoose.model('Header', headerSchema);
+const headerDataSchema = new mongoose.Schema(
+    {
+        organisationName: { type: String, required: true },
+        organisationLogo: { type: String, required: true },
+        navbar: [navSchema],
+        createdBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+    },
+    { timestamps: true }
+);
 
-export default Header;
+headerDataSchema.pre("save", dbLogger);
+
+export const HeaderData = mongoose.model("HeaderData", headerDataSchema);

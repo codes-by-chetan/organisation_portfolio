@@ -1,45 +1,45 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import dbLogger from "../middleware/dbLogger.middleware.js";
 
-const organisationPortfolioContactPageSchema = new mongoose.Schema({
-  organisationId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Organisation',
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  image: {
-    type: String,
-    required: true
-  },
-  url: {
-    type: String,
-    required: true
-  },
-  contactName: {
-    type: String,
-    required: true
-  },
-  contactEmail: {
-    type: String,
-    required: true
-  },
-  contactPhone: {
-    type: String,
-    required: true
-  },
-  contactMessage: {
-    type: String,
-    required: true
-  }
+const formFieldSchema = new mongoose.Schema({
+    label: {
+        type: String,
+        required: true,
+    },
+    inputType: {
+        type: String,
+        required: true,
+    },
+    placeHolder: {
+        type: String,
+        required: true,
+    },
+    selectValues: {
+        type: [String],
+        required: true,
+    },
 });
 
-const OrganisationPortfolioContactPage = mongoose.model('OrganisationPortfolioContactPage', organisationPortfolioContactPageSchema);
+const ContactPageDataSchema = new mongoose.Schema({
+    heading: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    contactForm: [formFieldSchema],
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
+});
 
-export default OrganisationPortfolioContactPage;
+ContactPageDataSchema.pre("save", dbLogger);
+
+export const ContactPageData = mongoose.model(
+    "ContactPageData",
+    ContactPageDataSchema
+);

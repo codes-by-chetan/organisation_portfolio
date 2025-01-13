@@ -1,38 +1,37 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import dbLogger from "../middleware/dbLogger.middleware.js";
 
-const serviceSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  description: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  image: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  organisation: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Organisation',
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
-}, {
-  timestamps: true
-});
+const servicesPageDataSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        description: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        image: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        createdBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
 
-const Service = mongoose.model('Service', serviceSchema);
+servicesPageDataSchema.pre("save", dbLogger);
 
-export default Service;
+export const ServicesPageData = mongoose.model(
+    "ServicesPageData",
+    servicesPageDataSchema
+);

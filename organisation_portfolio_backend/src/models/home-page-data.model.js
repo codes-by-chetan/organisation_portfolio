@@ -5,7 +5,7 @@ const imageSchema = new mongoose.Schema({
     url: { type: String, required: [true, "url is required"] },
     publicId: { type: String, required: [true, "publicId is required"] },
 });
-const  serviceSchema= new mongoose.Schema({
+const serviceSchema = new mongoose.Schema({
     name: { type: String, required: [true, "name is required"] },
     icon: { type: String, required: [true, "icon is required"] },
     color: {
@@ -18,8 +18,8 @@ const  serviceSchema= new mongoose.Schema({
 const statSchema = new mongoose.Schema({
     value: { type: Number, required: [true, "value is required"] },
     label: { type: String, required: [true, "label is required"] },
-    icon: { type: String, required: [true, "icon is required"] }
-})
+    icon: { type: String, required: [true, "icon is required"] },
+});
 const homePageDataSchema = new mongoose.Schema(
     {
         title: {
@@ -35,13 +35,13 @@ const homePageDataSchema = new mongoose.Schema(
         services: [serviceSchema],
         profileDownload: {
             type: String,
-            required: [true, "profileDownload is required"]
-        }
+            required: [true, "profileDownload is required"],
+        },
     },
     {
         timestamps: true,
     }
 );
 
-homePageDataSchema.pre('save', dbLogger);
+homePageDataSchema.pre("save", dbLogger);
 export const HomePageData = mongoose.model("HomePageData", homePageDataSchema);
